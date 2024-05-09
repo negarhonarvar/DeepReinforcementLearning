@@ -21,6 +21,7 @@ The episode ends under the following conditions:
     Termination: Pole Angle is greater than ±12°
     Termination: Cart Position is greater than ±2.4 (center of the cart reaches the edge of the display)
     Truncation: Episode length exceeds 500 steps
+## DQN
 in my code i provided an example of an agent exploring its environment and gradually converging to best solution in 2000 episodes.the hyperparametes are set according to an article in Research gate about 'Table of best hyperparameter for Cartpole-v1 Hyperparameter QRDQN with standard deviation penalisation PPO' ![SharedScreenshot](https://github.com/negarhonarvar/DeepReinforcementLearning/assets/79962938/f2e606d6-793f-4436-9082-6b69207b2ba1)
 
 and the nn is implemented based on "Deep Q-learning (DQN) Tutorial with CartPole-v0" article on medium.com . the rest of the code is a modified version of course's head TA Mr. Mehdi Shahbazi .
