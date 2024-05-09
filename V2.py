@@ -94,34 +94,33 @@ class DQN_Network(nn.Module):
 
         super(DQN_Network, self).__init__()
 
-        self.FC = nn.Sequential(
-            nn.Linear(4, 16),
-            nn.ReLU(inplace=True),
-            nn.Linear(16, 8),
-            nn.ReLU(inplace=True),
-            nn.Linear(8, 2)
-            )
+        # self.FC = nn.Sequential(
+        #     nn.Linear(4, 16),
+        #     nn.ReLU(inplace=True),
+        #     nn.Linear(16, 8),
+        #     nn.ReLU(inplace=True),
+        #     nn.Linear(8, 2)
+        #     )
+        # for layer in [self.FC]:
+        #     for module in layer:
+        #         if isinstance(module, nn.Linear):
+        #             nn.init.kaiming_uniform_(module.weight, nonlinearity='relu')
 
-        # self.linear1 = nn.Linear(4, 16)
-        # self.activation1 = nn.ReLU()
-        # self.linear2 = nn.Linear(16, 16)
-        # self.activation2 = nn.ReLU()
-        # self.linear3 = nn.Linear(16, 16)
-        # self.activation3 = nn.ReLU()
-        # # Output layer without activation function
-        # self.output_layer = nn.Linear(16, 2)
+        self.linear1 = nn.Linear(4, 16)
+        self.activation1 = nn.ReLU()
+        self.linear2 = nn.Linear(16, 16)
+        self.activation2 = nn.ReLU()
+        self.linear3 = nn.Linear(16, 16)
+        self.activation3 = nn.ReLU()
+        # Output layer without activation function
+        self.output_layer = nn.Linear(16, 2)
 
-        # # Initialization using Xavier uniform (a popular technique for initializing weights in NNs)
-        # nn.init.xavier_uniform_(self.linear1.weight)
-        # nn.init.xavier_uniform_(self.linear2.weight)
-        # nn.init.xavier_uniform_(self.linear3.weight)
-        # nn.init.xavier_uniform_(self.output_layer.weight)
+        # Initialization using Xavier uniform (a popular technique for initializing weights in NNs)
+        nn.init.xavier_uniform_(self.linear1.weight)
+        nn.init.xavier_uniform_(self.linear2.weight)
+        nn.init.xavier_uniform_(self.linear3.weight)
+        nn.init.xavier_uniform_(self.output_layer.weight)
 
-        # Initialize FC layer weights using He initialization
-        for layer in [self.FC]:
-            for module in layer:
-                if isinstance(module, nn.Linear):
-                    nn.init.kaiming_uniform_(module.weight, nonlinearity='relu')
 
     def forward(self, x):
         """
@@ -133,7 +132,12 @@ class DQN_Network(nn.Module):
             Q (torch.Tensor): Tensor containing Q-values for each action.
         """
         # Forward pass through the layers
-        x = self.FC(x)
+        inputs = x
+        x = self.activation1(self.linear1(inputs))
+        x = self.activation2(self.linear2(x))
+        x = self.activation3(self.linear3(x))
+        x = self.output_layer(x)
+        # x = self.FC(x)
         return x
 
 
@@ -153,6 +157,7 @@ class DQN_Agent:
         self.learned_counts = 0
 
         # RL hyperparameters
+        self.epsilon_history = []
         self.epsilon_max = epsilon_max
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_decay
@@ -286,8 +291,6 @@ class DQN_Agent:
         This method decreases epsilon over time according to a decay factor, ensuring
         that the agent becomes less exploratory and more exploitative as training progresses.
         """
-        self.epsilon_history = []
-        self.epsilon_history.append(self.epsilon_max)
         self.epsilon_max = max(self.epsilon_min, self.epsilon_max * self.epsilon_decay)
         
     def save(self, path):
@@ -347,9 +350,8 @@ class Model_TrainTest:
         which could mean agent is at state 2 from total of 5 states.
 
         """
-        onehot_vector = torch.zeros(num_states, dtype=torch.float32, device=device)
-        onehot_vector[state] = 1
-        return onehot_vector
+        vector = torch.as_tensor(state, dtype=torch.float32, device=device) # normalized version of state converted to tensor
+        return vector
 
     def train(self):
         """
@@ -358,11 +360,13 @@ class Model_TrainTest:
 
         total_steps = 0
         self.reward_history = []
-
+        self.epsilon_history = []
         # Training loop over episodes
         for episode in range(1, self.max_episodes + 1):
             state, _ = self.env.reset(seed=seed)
+            # print(state)
             state = self.state_preprocess(state, num_states=self.num_states)
+            # print(state)
             done = False
             truncation = False
             step_size = 0
@@ -371,7 +375,9 @@ class Model_TrainTest:
             while not done and not truncation:
                 action = self.agent.select_action(state)
                 next_state, reward, done, truncation, _ = self.env.step(action)
+                # print(next_state)
                 next_state = self.state_preprocess(next_state, num_states=self.num_states)
+                # print(next_state)
 
                 self.agent.replay_memory.store(state, action, next_state, reward, done)
 
@@ -387,6 +393,7 @@ class Model_TrainTest:
                 step_size += 1
 
             # Appends for tracking history
+            self.epsilon_history.append(self.agent.epsilon_max) # episode epsilon
             self.reward_history.append(episode_reward)  # episode reward
             total_steps += step_size
 
@@ -444,20 +451,33 @@ class Model_TrainTest:
         pygame.quit()  # close the rendering window
 
     def plot_training(self, episode):
-        # Calculate the Simple Moving Average (SMA) with a window size of 50
-        sma = np.convolve(self.reward_history, np.ones(50) / 50, mode='valid')
+        
+        plt.figure()
+        plt.title("Epsilon in epsilon-greedy policy")
+        plt.plot(self.epsilon_history, label='epsilon', color='#EB88E2')
+        plt.xlabel("Episode")
+        plt.ylabel("Epsilon")
+        plt.legend()
+
+        # Only save as file if last episode
+        if episode == self.max_episodes:
+            plt.savefig('d:\\term8\Deep Reinforcement Learning\HWs\HW1\model_output\DQN/Epsilon_plot.png', format='png', dpi=600, bbox_inches='tight')
+        plt.tight_layout()
+        plt.grid(True)
+        plt.show()
+        plt.clf()
+        plt.close()
 
         plt.figure()
-        plt.title("Rewards")
-        plt.plot(self.reward_history, label='Raw Reward', color='#F6CE3B', alpha=1)
-        plt.plot(sma, label='SMA 50', color='#385DAA')
+        plt.title("Reward for each episode")
+        plt.plot(self.reward_history, label='Raw Reward', color='#FF48B0', alpha=1)
         plt.xlabel("Episode")
         plt.ylabel("Rewards")
         plt.legend()
 
         # Only save as file if last episode
         if episode == self.max_episodes:
-            plt.savefig('./reward_plot.png', format='png', dpi=600, bbox_inches='tight')
+            plt.savefig('d:\\term8\Deep Reinforcement Learning\HWs\HW1\model_output\DQN/reward_plot.png', format='png', dpi=600, bbox_inches='tight')
         plt.tight_layout()
         plt.grid(True)
         plt.show()
@@ -466,13 +486,13 @@ class Model_TrainTest:
 
         plt.figure()
         plt.title("Loss")
-        plt.plot(self.agent.loss_history, label='Loss', color='#CB291A', alpha=1)
+        plt.plot(self.agent.loss_history, label='Loss', color='#832161', alpha=1)
         plt.xlabel("Episode")
         plt.ylabel("Loss")
 
         # Only save as file if last episode
         if episode == self.max_episodes:
-            plt.savefig('./Loss_plot.png', format='png', dpi=600, bbox_inches='tight')
+            plt.savefig('d:\\term8\Deep Reinforcement Learning\HWs\HW1\model_output\DQN\Loss_plot.png', format='png', dpi=600, bbox_inches='tight')
         plt.tight_layout()
         plt.grid(True)
         plt.show()
@@ -480,21 +500,21 @@ class Model_TrainTest:
 
 if __name__ == '__main__':
     # Parameters:
-    train_mode = True
+    train_mode = False
     render = not train_mode
     # map_size = 8  # 4x4 or 8x8
     RL_hyperparams = {
         "train_mode": train_mode,
-        "RL_load_path": 'd:\\term8\Deep Reinforcement Learning\HWs\HW1\model_output\DQN' + '_' + '500' + '.pth',
+        "RL_load_path": 'd:\\term8\Deep Reinforcement Learning\HWs\HW1\model_output\DQN' + '_' + '2000' + '.pth',
         "save_path":'d:\\term8\Deep Reinforcement Learning\HWs\HW1\model_output\DQN',
         "save_interval": 500,
 
         "clip_grad_norm": 3,
-        "learning_rate": 6e-4,
-        "discount_factor": 0.93,
-        "batch_size": 128,
+        "learning_rate": 2.3e-3,
+        "discount_factor": 0.99,
+        "batch_size": 64,
         "update_frequency": 10,
-        "max_episodes": 2500 if train_mode else 10,
+        "max_episodes": 2000 if train_mode else 10,
         "max_steps": 500,
         "render": render,
 
@@ -502,7 +522,7 @@ if __name__ == '__main__':
         "epsilon_min": 0.01,
         "epsilon_decay": 0.999,
 
-        "memory_capacity": 4_000 if train_mode else 0,
+        "memory_capacity": 100000 if train_mode else 0,
         
         "num_states": 4,
         "render_fps": 6,
