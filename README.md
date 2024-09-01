@@ -147,6 +147,7 @@ In this function, for each epoch, a sample is drawn from memory, and we attempt 
 
 ![image](https://github.com/user-attachments/assets/0cecf4fb-68ae-41ca-8b43-6bc3dd0697e0)
 
+performance of this algorithm with diffrent target_kl values are available in form of charts in related directory.
 ## PPO with Clipped Objective
 All sections of this algorithm are similar to the previous method, but there are differences in the learning phase. This learning arises from the difference in how the loss is calculated, which has a different impact on updating the network parameters. Additionally, it has fewer hyperparameters.
 
@@ -154,3 +155,6 @@ Learning:
 The computations above are based on the calculations mentioned for this section in the paper, which are as follows:
 
 ![image](https://github.com/user-attachments/assets/2bd97bbd-cbc5-4df1-87ce-8fd000989a85)
+
+
+performance of this algorithm with diffrent eps_clip values are available in form of charts in related directory.
