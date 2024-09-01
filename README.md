@@ -54,7 +54,9 @@ When adopting an epsilon-greedy policy, all actions have an equal probability of
 To address the issues with the epsilon-greedy policy, the Boltzmann exploration policy was introduced. This policy is based on considering the value of each (state, action) pair according to the knowledge acquired from the environment during random selection, allowing for more intelligent choices. Consequently, in this policy, better actions in each state have a higher chance of being selected during exploration, and random selection is no longer uniform. The balance between exploration and exploitation is managed using a temperature parameter, such that with an increase in temperature, the Boltzmann policy becomes more inclined to select actions with lower value.
 
 To implement this policy in the DQN algorithm, the parts related to the epsilon-greedy policy are removed, and the following sections are added:
+
 ![image](https://github.com/user-attachments/assets/47c29302-188f-4dd2-93df-5004462b27b8)
+
 Implementation of softmax (fixed temperature):
 We set the temperature equal to 1.
 In situations where the epsilon-greedy policy leads to the beginning of convergence at step 1600, the Boltzmann policy starts converging to the optimal solution at step 300, with much less variance.
@@ -80,18 +82,23 @@ The components of this algorithm have been implemented similarly to what we saw 
 
 The neural network is built with a greater number of neurons, but it has one fewer layer and a simpler structure compared to the previous neural network.
 Instead of the Model_TrainTest class, we have rewritten its two main components—namely, the loop where the training process occurs and the testing—as two separate functions in the main class. Here, once the training process is complete (which can happen in two cases: either the average score over an interval is greater than or equal to 200, or the maximum allowed episodes are reached), the neural network weights are saved, and a score chart is plotted at the end of each episode.
+
 ![DQN-Results1000](https://github.com/user-attachments/assets/8ba5175f-262d-431d-9916-e7d362de3196)
+
 ## D3QN
 The main differences in the implementation of this algorithm compared to DQN can be summarized in two points:
 In this algorithm, the neural network is derived from Dueling DQN. In Dueling DQN, the parameters of the two neural networks Q(s,a) are initialized with random final weights. Unlike traditional DQN, each network in Dueling DQN is split at a certain point into two separate streams—one for estimating the state-value function V(s) and the other for estimating the advantage function A(s,a). Additionally, we set epsilon to ϵ = 1. We use Stochastic Gradient Descent (SGD) to update the main network and minimize loss.
 Here, a D3QN_Agent is used, whose main difference from the traditional agent lies in the part related to the update_model function
 D3QN results are listed below :
+
 ![image](https://github.com/user-attachments/assets/000d8ee0-d653-4375-b109-4efe7922a5bf)
+
 
 ## Enhanced DQN
 To implement this algorithm, the following two changes need to be made to the D3QN algorithm:
 For the D3QN_Agent class, two parameters—learning_rate and discount_factor—are defined.
 In the hard_update function, when the weights of the target network are updated, the discount_factor and learning_rate parameters are also updated according to the relationships outlined in the paper.
+
 ![image](https://github.com/user-attachments/assets/87135e17-ef1f-47ee-882f-b9be40e19871)
 
 # SWIMMER ENVIRONMENT
@@ -104,16 +111,24 @@ The primary goal of the actor in the Swimmer environment is to move to the right
 ## PROXIMAL POLICY OPTIMIZATION
 We will implement two agents for two common version of PPO algorithm but before proceeding to that we shall take a quick look at what Proximal policy optimization is.
 Gradient-based policy methods tended to suffer from divergence, which we saw could be addressed by calculating a matrix of second-order derivatives and its inverse as follows:
+
 ![image](https://github.com/user-attachments/assets/8e71548b-00ad-4caf-a777-9fd8c2224a46)
+
 ![image](https://github.com/user-attachments/assets/a4d8d654-3e68-41c5-b259-ff386c0c7e4f)
+
 However, this method is very costly and practically infeasible in large environments with high complexity. To address this issue, the Proximal Policy Optimization (PPO) algorithm was introduced. The main approach in PPO to solve this problem involves using first-order derivatives combined with the application of several soft constraints. Sometimes, we may continue the learning process with a poor policy decision; therefore, we proceed with first-order derivatives similar to stochastic gradient descent. However, adding soft constraints to the objective function ensures that optimization occurs within a trust region, thereby reducing the likelihood of making poor decisions.
 It is worth mentioning that in this method, we use the advantage function instead of the Q(s,a) function because it leads to less variance in the approximation.
 ## PPO with Adaptive KL Penalty
 One way to formulate the objective is to assume the stated constraint as a multiplier of the objective function and subtract it from 𝐿(𝜃). The value below corresponds to the calibrated advantage, which can be calculated based on either the old policy or the current policy, and its calibrated amount is based on the probability rate in both policies. β controls the penalty weight. This parameter penalizes the objective function if the new policy differs from the old policy. By borrowing a page from the trust region, we can dynamically adjust β. 𝑑 in the equation below represents the KL divergence between the old and new policies. If this value exceeds a target threshold, we decrease 𝛽. Similarly, if this value falls below another target threshold, we expand the trust region. Thus, the dynamic adjustment of the trust region by establishing a lower confidence bound ensures that we never experience performance collapse. Additionally, the initial value of β does not create significant sensitivity, as the algorithm can quickly adjust it.
+
 ![image](https://github.com/user-attachments/assets/c4ddb067-ecbf-4237-bd77-b03697aebac8)
+
 ![image](https://github.com/user-attachments/assets/0511e23c-3540-42c5-8f11-84c71c9d5679)
+
 The algorithm that we follow in this method is described below:
+
 ![image](https://github.com/user-attachments/assets/bfe83e0a-25bc-4c29-8c3c-b7edc76062e9)
+
 Based on the above structure and the details provided in the Adaptive KL PPO paper, we implement it as follows:
 
 Neural Network: 
@@ -137,4 +152,5 @@ All sections of this algorithm are similar to the previous method, but there are
 
 Learning:
 The computations above are based on the calculations mentioned for this section in the paper, which are as follows:
+
 ![image](https://github.com/user-attachments/assets/2bd97bbd-cbc5-4df1-87ce-8fd000989a85)
