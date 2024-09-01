@@ -158,3 +158,8 @@ The computations above are based on the calculations mentioned for this section 
 
 
 performance of this algorithm with diffrent eps_clip values are available in form of charts in related directory.
+
+![reward_plot](https://github.com/user-attachments/assets/ea0ea8a7-3457-4c1f-82bc-7d92011924b9)
+
+![Loss_plot](https://github.com/user-attachments/assets/97f65453-bff4-436f-852d-ec1047fc9dc2)
+
