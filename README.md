@@ -22,7 +22,9 @@ The episode ends under the following conditions:
     Termination: Cart Position is greater than ±2.4 (center of the cart reaches the edge of the display)
     Truncation: Episode length exceeds 500 steps
 ## DQN
-in my code i provided an example of an agent exploring its environment and gradually converging to best solution in 2000 episodes.the hyperparametes are set according to an article in Research gate about 'Table of best hyperparameter for Cartpole-v1 Hyperparameter QRDQN with standard deviation penalisation PPO' ![SharedScreenshot](https://github.com/negarhonarvar/DeepReinforcementLearning/assets/79962938/f2e606d6-793f-4436-9082-6b69207b2ba1)
+in my code i provided an example of an agent exploring its environment and gradually converging to best solution in 2000 episodes.the hyperparametes are set according to an article in Research gate about 'Table of best hyperparameter for Cartpole-v1 Hyperparameter QRDQN with standard deviation penalisation PPO' 
+
+<img src="https://github.com/negarhonarvar/DeepReinforcementLearning/assets/79962938/f2e606d6-793f-4436-9082-6b69207b2ba1" width ="400">
 
 and the nn is implemented based on "Deep Q-learning (DQN) Tutorial with CartPole-v0" article on medium.com . the rest of the code is a modified version of course's head TA Mr. Mehdi Shahbazi .
 
@@ -39,11 +41,7 @@ The other parts of the code, such as the epsilon-greedy policy and its applicati
 Additionally, the hyperparameters related to the discretization of the environment, which were mentioned in the previous section, are also included.
 
 
-
-
-https://github.com/user-attachments/assets/2cbd9597-db35-4377-b51a-c7469f6c7b21
-
-
+<img src="github.com/user-attachments/assets/2cbd9597-db35-4377-b51a-c7469f6c7b21" width ="400">
 
 
 https://github.com/negarhonarvar/DeepReinforcementLearning/assets/79962938/bb188e6e-13fc-4080-88e2-964296934c04
@@ -55,7 +53,7 @@ To address the issues with the epsilon-greedy policy, the Boltzmann exploration 
 
 To implement this policy in the DQN algorithm, the parts related to the epsilon-greedy policy are removed, and the following sections are added:
 
-![image](https://github.com/user-attachments/assets/47c29302-188f-4dd2-93df-5004462b27b8)
+<img src="https://github.com/user-attachments/assets/47c29302-188f-4dd2-93df-5004462b27b8" width="400">
 
 Implementation of softmax (fixed temperature):
 We set the temperature equal to 1.
@@ -83,7 +81,7 @@ The components of this algorithm have been implemented similarly to what we saw 
 The neural network is built with a greater number of neurons, but it has one fewer layer and a simpler structure compared to the previous neural network.
 Instead of the Model_TrainTest class, we have rewritten its two main components—namely, the loop where the training process occurs and the testing—as two separate functions in the main class. Here, once the training process is complete (which can happen in two cases: either the average score over an interval is greater than or equal to 200, or the maximum allowed episodes are reached), the neural network weights are saved, and a score chart is plotted at the end of each episode.
 
-![DQN-Results1000](https://github.com/user-attachments/assets/8ba5175f-262d-431d-9916-e7d362de3196)
+<img src="https://github.com/user-attachments/assets/8ba5175f-262d-431d-9916-e7d362de3196" width = "400">
 
 ## D3QN
 The main differences in the implementation of this algorithm compared to DQN can be summarized in two points:
@@ -91,7 +89,7 @@ In this algorithm, the neural network is derived from Dueling DQN. In Dueling DQ
 Here, a D3QN_Agent is used, whose main difference from the traditional agent lies in the part related to the update_model function
 D3QN results are listed below :
 
-![image](https://github.com/user-attachments/assets/000d8ee0-d653-4375-b109-4efe7922a5bf)
+<img src="https://github.com/user-attachments/assets/000d8ee0-d653-4375-b109-4efe7922a5bf" width ="400">
 
 
 ## Enhanced DQN
@@ -99,7 +97,7 @@ To implement this algorithm, the following two changes need to be made to the D3
 For the D3QN_Agent class, two parameters—learning_rate and discount_factor—are defined.
 In the hard_update function, when the weights of the target network are updated, the discount_factor and learning_rate parameters are also updated according to the relationships outlined in the paper.
 
-![image](https://github.com/user-attachments/assets/87135e17-ef1f-47ee-882f-b9be40e19871)
+<img src="https://github.com/user-attachments/assets/87135e17-ef1f-47ee-882f-b9be40e19871" width = "400">
 
 # SWIMMER ENVIRONMENT
 The Swimmer environment in MuJoCo is a reinforcement learning environment where the goal is to control a multi-jointed swimmer to move forward quickly in a two-dimensional fluid environment. The swimmer is essentially a small robotic entity with a simple body structure, consisting of a head and multiple tail-like segments. As described on the reference site:
@@ -112,22 +110,22 @@ The primary goal of the actor in the Swimmer environment is to move to the right
 We will implement two agents for two common version of PPO algorithm but before proceeding to that we shall take a quick look at what Proximal policy optimization is.
 Gradient-based policy methods tended to suffer from divergence, which we saw could be addressed by calculating a matrix of second-order derivatives and its inverse as follows:
 
-![image](https://github.com/user-attachments/assets/8e71548b-00ad-4caf-a777-9fd8c2224a46)
+<img src="https://github.com/user-attachments/assets/8e71548b-00ad-4caf-a777-9fd8c2224a46" width="400">
 
-![image](https://github.com/user-attachments/assets/a4d8d654-3e68-41c5-b259-ff386c0c7e4f)
+<img src="https://github.com/user-attachments/assets/a4d8d654-3e68-41c5-b259-ff386c0c7e4f" width="400">
 
 However, this method is very costly and practically infeasible in large environments with high complexity. To address this issue, the Proximal Policy Optimization (PPO) algorithm was introduced. The main approach in PPO to solve this problem involves using first-order derivatives combined with the application of several soft constraints. Sometimes, we may continue the learning process with a poor policy decision; therefore, we proceed with first-order derivatives similar to stochastic gradient descent. However, adding soft constraints to the objective function ensures that optimization occurs within a trust region, thereby reducing the likelihood of making poor decisions.
 It is worth mentioning that in this method, we use the advantage function instead of the Q(s,a) function because it leads to less variance in the approximation.
 ## PPO with Adaptive KL Penalty
 One way to formulate the objective is to assume the stated constraint as a multiplier of the objective function and subtract it from 𝐿(𝜃). The value below corresponds to the calibrated advantage, which can be calculated based on either the old policy or the current policy, and its calibrated amount is based on the probability rate in both policies. β controls the penalty weight. This parameter penalizes the objective function if the new policy differs from the old policy. By borrowing a page from the trust region, we can dynamically adjust β. 𝑑 in the equation below represents the KL divergence between the old and new policies. If this value exceeds a target threshold, we decrease 𝛽. Similarly, if this value falls below another target threshold, we expand the trust region. Thus, the dynamic adjustment of the trust region by establishing a lower confidence bound ensures that we never experience performance collapse. Additionally, the initial value of β does not create significant sensitivity, as the algorithm can quickly adjust it.
 
-![image](https://github.com/user-attachments/assets/c4ddb067-ecbf-4237-bd77-b03697aebac8)
+<img src="https://github.com/user-attachments/assets/c4ddb067-ecbf-4237-bd77-b03697aebac8" width ="400">
 
-![image](https://github.com/user-attachments/assets/0511e23c-3540-42c5-8f11-84c71c9d5679)
+<img src="https://github.com/user-attachments/assets/0511e23c-3540-42c5-8f11-84c71c9d5679" width="400">
 
 The algorithm that we follow in this method is described below:
 
-![image](https://github.com/user-attachments/assets/bfe83e0a-25bc-4c29-8c3c-b7edc76062e9)
+<img src="https://github.com/user-attachments/assets/bfe83e0a-25bc-4c29-8c3c-b7edc76062e9" width="400">
 
 Based on the above structure and the details provided in the Adaptive KL PPO paper, we implement it as follows:
 
@@ -145,7 +143,7 @@ During action selection based on the state and the old policy network, we attemp
 Learn Function:
 In this function, for each epoch, a sample is drawn from memory, and we attempt to improve the neural network using this sample. The error is calculated for each sample based on the relationship mentioned in the paper, and the network parameters are updated for each sample.
 
-![image](https://github.com/user-attachments/assets/0cecf4fb-68ae-41ca-8b43-6bc3dd0697e0)
+<img src="https://github.com/user-attachments/assets/0cecf4fb-68ae-41ca-8b43-6bc3dd0697e0" width="400">
 
 performance of this algorithm with diffrent target_kl values are available in form of charts in related directory.
 ## PPO with Clipped Objective
@@ -154,12 +152,12 @@ All sections of this algorithm are similar to the previous method, but there are
 Learning:
 The computations above are based on the calculations mentioned for this section in the paper, which are as follows:
 
-![image](https://github.com/user-attachments/assets/2bd97bbd-cbc5-4df1-87ce-8fd000989a85)
+<img src="https://github.com/user-attachments/assets/2bd97bbd-cbc5-4df1-87ce-8fd000989a85" width="400">
 
 
 performance of this algorithm with diffrent eps_clip values are available in form of charts in related directory.
 
-![reward_plot](https://github.com/user-attachments/assets/ea0ea8a7-3457-4c1f-82bc-7d92011924b9)
+<img src="https://github.com/user-attachments/assets/ea0ea8a7-3457-4c1f-82bc-7d92011924b9" width="400">
 
-![Loss_plot](https://github.com/user-attachments/assets/97f65453-bff4-436f-852d-ec1047fc9dc2)
+<img src="https://github.com/user-attachments/assets/97f65453-bff4-436f-852d-ec1047fc9dc2" width="400">
 
