@@ -41,8 +41,7 @@ The other parts of the code, such as the epsilon-greedy policy and its applicati
 Additionally, the hyperparameters related to the discretization of the environment, which were mentioned in the previous section, are also included.
 
 
-<img src="https://github.com/user-attachments/assets/156fcca6-674a-412b-9099-b84bb162da0d
-" width ="400">
+<img src="https://github.com/user-attachments/assets/b07c19fe-e6c7-4a72-9acf-d882f4226f74" width ="400">
 
 
 https://github.com/negarhonarvar/DeepReinforcementLearning/assets/79962938/bb188e6e-13fc-4080-88e2-964296934c04
