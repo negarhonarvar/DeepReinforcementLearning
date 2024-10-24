@@ -12,7 +12,7 @@ To address the issues with the epsilon-greedy policy, the Boltzmann exploration 
 
 To implement this policy in the DQN algorithm, the parts related to the epsilon-greedy policy are removed, and the following sections are added:
 
-<img src="https://github.com/user-attachments/assets/47c29302-188f-4dd2-93df-5004462b27b8" width="400">
+<img src="https://github.com/user-attachments/assets/47c29302-188f-4dd2-93df-5004462b27b8" width="400" align="center">
 
 Implementation of softmax (fixed temperature):
 We set the temperature equal to 1.
