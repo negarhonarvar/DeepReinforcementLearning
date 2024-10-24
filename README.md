@@ -46,18 +46,3 @@ However, this method is very costly and practically infeasible in large environm
 It is worth mentioning that in this method, we use the advantage function instead of the Q(s,a) function because it leads to less variance in the approximation.
 
 
-## PPO with Clipped Objective
-All sections of this algorithm are similar to the previous method, but there are differences in the learning phase. This learning arises from the difference in how the loss is calculated, which has a different impact on updating the network parameters. Additionally, it has fewer hyperparameters.
-
-Learning:
-The computations above are based on the calculations mentioned for this section in the paper, which are as follows:
-
-<img src="https://github.com/user-attachments/assets/2bd97bbd-cbc5-4df1-87ce-8fd000989a85" width="400">
-
-
-performance of this algorithm with diffrent eps_clip values are available in form of charts in related directory.
-
-<img src="https://github.com/user-attachments/assets/ea0ea8a7-3457-4c1f-82bc-7d92011924b9" width="400">
-
-<img src="https://github.com/user-attachments/assets/97f65453-bff4-436f-852d-ec1047fc9dc2" width="400">
-
