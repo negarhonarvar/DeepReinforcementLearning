@@ -27,15 +27,6 @@ The episode ends under the following conditions:
 This environment is part of the Box2D environments which contains general information about the environment and  is a classic rocket trajectory optimization problem. According to Pontryagin’s maximum principle, it is optimal to fire the engine at full throttle or turn it off. This is the reason why this environment has discrete actions: engine on or off. for more information on Lunar Lander environment visit gymnasium. we will examine performance of 3 common variations of DQN in this environment.
 
 
-## D3QN
-The main differences in the implementation of this algorithm compared to DQN can be summarized in two points:
-In this algorithm, the neural network is derived from Dueling DQN. In Dueling DQN, the parameters of the two neural networks Q(s,a) are initialized with random final weights. Unlike traditional DQN, each network in Dueling DQN is split at a certain point into two separate streams—one for estimating the state-value function V(s) and the other for estimating the advantage function A(s,a). Additionally, we set epsilon to ϵ = 1. We use Stochastic Gradient Descent (SGD) to update the main network and minimize loss.
-Here, a D3QN_Agent is used, whose main difference from the traditional agent lies in the part related to the update_model function
-D3QN results are listed below :
-
-<img src="https://github.com/user-attachments/assets/000d8ee0-d653-4375-b109-4efe7922a5bf" width ="400">
-
-
 ## Enhanced DQN
 To implement this algorithm, the following two changes need to be made to the D3QN algorithm:
 For the D3QN_Agent class, two parameters—learning_rate and discount_factor—are defined.
