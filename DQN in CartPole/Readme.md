@@ -14,21 +14,21 @@ To implement this policy in the DQN algorithm, the parts related to the epsilon-
 <p align="center">
    <img src="https://github.com/user-attachments/assets/47c29302-188f-4dd2-93df-5004462b27b8">
 </p>
+
+https://github.com/user-attachments/assets/483719a6-9560-41ff-9930-1852fb684b30
+
+
 Implementation of softmax (fixed temperature):
 We set the temperature equal to 1.
 In situations where the epsilon-greedy policy leads to the beginning of convergence at step 1600, the Boltzmann policy starts converging to the optimal solution at step 300, with much less variance.
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/2d47faa9-b52c-4e1b-af40-9766b0479a0a">
-</p>
+https://github.com/user-attachments/assets/40d9c3a8-c68d-469d-8c88-15f609c72ce5
+
 Necessary Implementations for Boltzman:
 Modifications in applying the softmax function.
 Implementation of a function to adjust the temperature.
 In this implementation, in addition to the temperature hyperparameter, we also need the temperature decay hyperparameter and the minimum temperature hyperparameter. Therefor we set tau = 1.0 , tau_min = 0.01 and tau_decay = 0.995
 
+https://github.com/user-attachments/assets/a75517e5-22c8-44d1-a567-e8075e65f943
 
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/71e117a2-2b09-47d1-8a5d-2e08dba6070a">
-</p>
 
