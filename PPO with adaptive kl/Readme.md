@@ -33,15 +33,16 @@ In this function, for each epoch, a sample is drawn from memory, and we attempt 
 
 ## Performance of this algorithm with diffrent target_kl 
 <p align = "center">
+ <p>KL = 0.1</p>
   <img src="https://github.com/user-attachments/assets/de7e1065-b710-4675-9886-694b95abf393" width="400">
   <img src="https://github.com/user-attachments/assets/ebe0be75-6420-4b17-af5d-e5358318ac61" width="400">
-
+<p>KL = 0.05</p>
   <img src="https://github.com/user-attachments/assets/39e7df20-fda8-4d37-bbbe-cadf714c652d" width="400">
   <img src="https://github.com/user-attachments/assets/1a0b0723-9188-4034-9402-2130d1ea453d" width="400">
-
+<p>KL = 0.005</p>
   <img src="https://github.com/user-attachments/assets/67581685-87eb-4694-b70f-865069b292b2" width="400">
   <img src="https://github.com/user-attachments/assets/a2532fb0-775a-4c88-9b83-7fc68ce5dc98" width="400">
-
+<p>Final Results</p>
   <img src="https://github.com/user-attachments/assets/b121ff41-6f49-4eb1-9c38-77b9fe1ddb24" width="400">
   <img src="https://github.com/user-attachments/assets/4529e6e7-ab3b-40aa-9702-4f68825dbb85" width="400">
 </p>
