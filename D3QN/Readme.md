@@ -17,3 +17,6 @@ As you can see , this algorithm has slower convergance rate and less estimation 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e4e7e398-3b79-4fd8-8b7c-219481340d0d" width ="400">
 </p>
+
+https://github.com/user-attachments/assets/4cde2bd9-f56c-40a1-bb59-cc14aa56dc93
+
