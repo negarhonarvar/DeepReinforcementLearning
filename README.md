@@ -31,6 +31,10 @@ The episode ends under the following conditions:
     Termination: Cart Position is greater than ±2.4 (center of the cart reaches the edge of the display)
     Truncation: Episode length exceeds 500 steps
 
+## Agents
+
+      <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/blob/main/Graph_Q3.ipynb">Graph 3</a></th>
+
 
 # Lunar Lander
 This environment is part of the Box2D environments which contains general information about the environment and  is a classic rocket trajectory optimization problem.
