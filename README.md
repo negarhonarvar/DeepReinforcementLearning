@@ -33,7 +33,8 @@ The episode ends under the following conditions:
 
 ## Agents
 
-      <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/blob/main/Graph_Q3.ipynb">Graph 3</a></th>
+      <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/tree/main/DQN%20in%20CartPole">DQN</a></th>
+      <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/tree/main/SARSA%20in%20CartPole">SARSA</a></th>
 
 
 # Lunar Lander
@@ -52,6 +53,12 @@ There are four discrete actions available
 
 ### Observation Space
 The state is an 8-dimensional vector: the coordinates of the lander in x & y, its linear velocities in x & y, its angle, its angular velocity, and two booleans that represent whether each leg is in contact with the ground or not.
+
+## Agents
+
+    <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/tree/main/DQN%20in%20Lunar%20Lander">DQN</a></th>
+    <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/tree/main/D3QN">D3QN</a></th>
+    <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/tree/main/EnhancedD3QN">Enhanced D3QN</a></th>
 
 # Swimmer Environment
 The Swimmer environment in MuJoCo is a reinforcement learning environment where the goal is to control a multi-jointed swimmer to move forward quickly in a two-dimensional fluid environment. The swimmer is essentially a small robotic entity with a simple body structure, consisting of a head and multiple tail-like segments. As described on the reference site:
@@ -78,6 +85,7 @@ The primary goal of the actor in the Swimmer environment is to move to the right
     qpos (3 elements by default): Position values of the robot’s body parts.
     qvel (5 elements): The velocities of these individual body parts (their derivatives).
 
+## Agents
 
-
-
+    <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/tree/main/PPO%20with%20adaptive%20kl">PPO with Adaptive KL</a></th>
+    <th><a href="https://github.com/negarhonarvar/DeepReinforcementLearning/tree/main/PPo%20with%20clipped%20objective">PPO with Clipped Objective</a></th>
