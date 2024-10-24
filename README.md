@@ -26,14 +26,6 @@ The episode ends under the following conditions:
 # Lunar Lander
 This environment is part of the Box2D environments which contains general information about the environment and  is a classic rocket trajectory optimization problem. According to Pontryagin’s maximum principle, it is optimal to fire the engine at full throttle or turn it off. This is the reason why this environment has discrete actions: engine on or off. for more information on Lunar Lander environment visit gymnasium. we will examine performance of 3 common variations of DQN in this environment.
 
-
-## Enhanced DQN
-To implement this algorithm, the following two changes need to be made to the D3QN algorithm:
-For the D3QN_Agent class, two parameters—learning_rate and discount_factor—are defined.
-In the hard_update function, when the weights of the target network are updated, the discount_factor and learning_rate parameters are also updated according to the relationships outlined in the paper.
-
-<img src="https://github.com/user-attachments/assets/87135e17-ef1f-47ee-882f-b9be40e19871" width = "400">
-
 # SWIMMER ENVIRONMENT
 The Swimmer environment in MuJoCo is a reinforcement learning environment where the goal is to control a multi-jointed swimmer to move forward quickly in a two-dimensional fluid environment. The swimmer is essentially a small robotic entity with a simple body structure, consisting of a head and multiple tail-like segments. As described on the reference site:
 
