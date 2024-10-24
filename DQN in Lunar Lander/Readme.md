@@ -7,3 +7,11 @@ The components of this algorithm have been implemented similarly to what we did 
 <p align = "center">
     <img src="https://github.com/user-attachments/assets/8ba5175f-262d-431d-9916-e7d362de3196" width = "400">
 </p>
+
+## Results
+DQN has better Convergance rate and estimation accuracy comparing to D3QN , but not as accurate and fast as enhanced D3QN.
+
+<p align = "center">
+    <img src="https://github.com/user-attachments/assets/36631dea-ebfd-4a23-932e-de7bde6291d5" width = "400">
+</p>
+
