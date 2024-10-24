@@ -21,56 +21,6 @@ The episode ends under the following conditions:
     Termination: Pole Angle is greater than ±12°
     Termination: Cart Position is greater than ±2.4 (center of the cart reaches the edge of the display)
     Truncation: Episode length exceeds 500 steps
-## DQN
-in my code i provided an example of an agent exploring its environment and gradually converging to best solution in 2000 episodes.the hyperparametes are set according to an article in Research gate about 'Table of best hyperparameter for Cartpole-v1 Hyperparameter QRDQN with standard deviation penalisation PPO' 
-
-<img src="https://github.com/negarhonarvar/DeepReinforcementLearning/assets/79962938/f2e606d6-793f-4436-9082-6b69207b2ba1" width ="400">
-
-and the nn is implemented based on "Deep Q-learning (DQN) Tutorial with CartPole-v0" article on medium.com . the rest of the code is a modified version of course's head TA Mr. Mehdi Shahbazi .
-
-## SARSA
-In the SARSA algorithm, there is no longer a neural network; instead, a concept called a Q-Table is used. The Q-Table is applied by examining each experience in the format of current state, current action, reward, next state, and next action. Given the continuous nature of the environment, it is necessary to first discretize the environment into a discrete one based on a set of hyperparameters with an appropriate approximation. Then, we create a table, the size of which is determined based on the hyperparameters like the number of bins or buckets, the states of the observation space, and the action space. This table will then be filled with values according to the equation Q(s,a) <- Q(s,a) + alpha(yi - Q(s,a)) (TD), and it will be the basis for our decision-making to select the optimal action in each state.
-
-The other parts of the code, such as the epsilon-greedy policy and its application in decision-making, training, and testing, as well as seeding, are similar to the DQN algorithm. However, in this case, the hyperparameter values play a significant role, and their final values are as follows:
-- Epsilon = 1
-- Epsilon decay = 0.999
-- Epsilon min = 0.01
-- Learning_rate = 0.25
-- Discount_factor = 0.995
-
-Additionally, the hyperparameters related to the discretization of the environment, which were mentioned in the previous section, are also included.
-
-
-<img src="https://github.com/user-attachments/assets/b07c19fe-e6c7-4a72-9acf-d882f4226f74" width ="400">
-
-
-https://github.com/negarhonarvar/DeepReinforcementLearning/assets/79962938/bb188e6e-13fc-4080-88e2-964296934c04
-
-## Applying boltzman policy 
-When adopting an epsilon-greedy policy, all actions have an equal probability of being selected during exploration. As a result, we may choose actions that are very poor or irrelevant, leading to bad and misleading experiences, ultimately resulting in poor training.
-
-To address the issues with the epsilon-greedy policy, the Boltzmann exploration policy was introduced. This policy is based on considering the value of each (state, action) pair according to the knowledge acquired from the environment during random selection, allowing for more intelligent choices. Consequently, in this policy, better actions in each state have a higher chance of being selected during exploration, and random selection is no longer uniform. The balance between exploration and exploitation is managed using a temperature parameter, such that with an increase in temperature, the Boltzmann policy becomes more inclined to select actions with lower value.
-
-To implement this policy in the DQN algorithm, the parts related to the epsilon-greedy policy are removed, and the following sections are added:
-
-<img src="https://github.com/user-attachments/assets/47c29302-188f-4dd2-93df-5004462b27b8" width="400">
-
-Implementation of softmax (fixed temperature):
-We set the temperature equal to 1.
-In situations where the epsilon-greedy policy leads to the beginning of convergence at step 1600, the Boltzmann policy starts converging to the optimal solution at step 300, with much less variance.
-
-
-https://github.com/user-attachments/assets/609b904e-dfc1-43e9-8f6c-8d2caa6a23f0
-
-
-Necessary Implementations for Boltzman:
-Modifications in applying the softmax function.
-Implementation of a function to adjust the temperature.
-In this implementation, in addition to the temperature hyperparameter, we also need the temperature decay hyperparameter and the minimum temperature hyperparameter. Therefor we set tau = 1.0 , tau_min = 0.01 and tau_decay = 0.995
-
-
-
-https://github.com/user-attachments/assets/af11ad5a-15bd-42c9-b437-cf7a354a73fb
 
 
 # Lunar Lander
