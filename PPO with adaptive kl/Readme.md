@@ -46,3 +46,8 @@ In this function, for each epoch, a sample is drawn from memory, and we attempt 
   <img src="https://github.com/user-attachments/assets/b121ff41-6f49-4eb1-9c38-77b9fe1ddb24" width="400">
   <img src="https://github.com/user-attachments/assets/4529e6e7-ab3b-40aa-9702-4f68825dbb85" width="400">
 </p>
+
+
+
+https://github.com/user-attachments/assets/15dc86a7-4e38-4dbc-8014-224ffaf53c2b
+
