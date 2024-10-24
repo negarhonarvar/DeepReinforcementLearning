@@ -19,7 +19,7 @@ We set the temperature equal to 1.
 In situations where the epsilon-greedy policy leads to the beginning of convergence at step 1600, the Boltzmann policy starts converging to the optimal solution at step 300, with much less variance.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/5fbeefc9-aca4-4c8b-84db-16e88d736892">
+  <img src="https://github.com/user-attachments/assets/2d47faa9-b52c-4e1b-af40-9766b0479a0a">
 </p>
 Necessary Implementations for Boltzman:
 Modifications in applying the softmax function.
@@ -29,5 +29,6 @@ In this implementation, in addition to the temperature hyperparameter, we also n
 
 
 <p align="center">
-   <img src="https://github.com/user-attachments/assets/ff010fd6-f285-485e-9383-e795f7b9a496">
+  <img src="https://github.com/user-attachments/assets/71e117a2-2b09-47d1-8a5d-2e08dba6070a">
+</p>
 
