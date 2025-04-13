@@ -1,6 +1,6 @@
 # Deep Reinforcement Learning Algorithms
-Deep Reinforcement Learning Course Assignments by DR. Armin Salimi Badr
-the codes in this repository utilize qymnasium library environments.
+Deep Reinforcement Learning Course Assignments by DR. Armin Salimi Badr.
+the codes in this repository utilize Gymnasium library environments.
 
 ## Prerequisites 📋
 To successfully run the codes in this repository, you need to install:
